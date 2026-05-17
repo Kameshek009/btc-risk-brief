@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  launchd-плист: запускает risk_brief.py в 09:00 и 21:00 локального времени.
+
+  ПЕРЕД установкой замени __PROJECT_DIR__ и __REPORT_DIR__ на абсолютные
+  пути на твоей машине. Пример (из корня репозитория):
+
+    PROJECT_DIR="$PWD"
+    REPORT_DIR="$HOME/Desktop/report"
+    mkdir -p "$REPORT_DIR"
+    sed -e "s|__PROJECT_DIR__|$PROJECT_DIR|g" \
+        -e "s|__REPORT_DIR__|$REPORT_DIR|g" \
+        launchd/com.marci.risk_brief.plist > ~/Library/LaunchAgents/com.marci.risk_brief.plist
+    launchctl unload ~/Library/LaunchAgents/com.marci.risk_brief.plist 2>/dev/null
+    launchctl load   ~/Library/LaunchAgents/com.marci.risk_brief.plist
+    launchctl start  com.marci.risk_brief    # принудительный прогон сейчас
+
+  Проверить статус: launchctl list | grep marci
+  Удалить:
+    launchctl unload ~/Library/LaunchAgents/com.marci.risk_brief.plist
+    rm ~/Library/LaunchAgents/com.marci.risk_brief.plist
+-->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.marci.risk_brief</string>
+
+  <key>WorkingDirectory</key>
+  <string>__PROJECT_DIR__</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/bin/python3</string>
+    <string>__PROJECT_DIR__/scripts/risk_brief.py</string>
+    <string>--text-only</string>
+    <string>--report-dir</string>
+    <string>__REPORT_DIR__</string>
+  </array>
+
+  <key>StandardOutPath</key>
+  <string>__PROJECT_DIR__/logs/risk_brief.stdout.log</string>
+  <key>StandardErrorPath</key>
+  <string>__PROJECT_DIR__/logs/risk_brief.stderr.log</string>
+
+  <key>RunAtLoad</key>
+  <false/>
+
+  <key>StartCalendarInterval</key>
+  <array>
+    <dict>
+      <key>Hour</key><integer>9</integer>
+      <key>Minute</key><integer>0</integer>
+    </dict>
+    <dict>
+      <key>Hour</key><integer>21</integer>
+      <key>Minute</key><integer>0</integer>
+    </dict>
+  </array>
+</dict>
+</plist>
