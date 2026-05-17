@@ -6,6 +6,8 @@ Markdown, рисует PNG-чарт. **Никаких API-ключей бирж,
 кода — оценку рисков делаешь ты сам или копируешь вывод в чат вроде
 ChatGPT/Claude/Grok.**
 
+![Sample BTC chart with SMA50/200 and drawdown panel](docs/btc_sample.png)
+
 > Связь по проекту / вопросы / баги — Telegram **[@y2026kk09](https://t.me/y2026kk09)**.
 
 ---
